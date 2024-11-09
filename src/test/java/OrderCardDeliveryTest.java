@@ -11,7 +11,6 @@ import java.time.format.DateTimeFormatter;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OrderCardDeliveryTest {
 
@@ -40,8 +39,10 @@ public class OrderCardDeliveryTest {
         $("[data-test-id='agreement'] span").click();
         $("button .button__text").shouldBe(Condition.text("Забронировать")).click();
 
-        String notificationContent = $("[data-test-id='notification'] .notification__content").shouldBe(Condition.visible, Duration.ofSeconds(15)).text();
-        assertEquals("Встреча успешно забронирована на " + selectDate, notificationContent);
+        // New checking without JUnit
+        $("[data-test-id='notification'] .notification__content").shouldBe(
+                Condition.text("Встреча успешно забронирована на " + selectDate), Duration.ofSeconds(15)
+        );
     }
 
     // Negative Test - wrong city
@@ -51,8 +52,10 @@ public class OrderCardDeliveryTest {
         $("[data-test-id='city'] .input__control").setValue("Минск");
         $("button .button__text").shouldBe(Condition.text("Забронировать")).click();
 
-        String warning = $("[data-test-id='city'] .input__sub").text();
-        assertEquals("Доставка в выбранный город недоступна", warning);
+        // New checking without JUnit
+        $("[data-test-id='city'] .input__sub").shouldBe(
+                Condition.text("Доставка в выбранный город недоступна")
+        );
     }
 
     // Negative Test - wrong date
@@ -68,8 +71,10 @@ public class OrderCardDeliveryTest {
         $("[data-test-id='date'] .input__control").setValue(selectDate);
         $("button .button__text").shouldBe(Condition.text("Забронировать")).click();
 
-        String warning = $("[data-test-id='date'] .input__sub").text();
-        assertEquals("Заказ на выбранную дату невозможен", warning);
+        // New checking without JUnit
+        $("[data-test-id='date'] .input__sub").shouldBe(
+                Condition.text("Заказ на выбранную дату невозможен")
+        );
     }
 
     // Negative Test - wrong name
@@ -83,8 +88,10 @@ public class OrderCardDeliveryTest {
         $("[data-test-id='name'] .input__control").setValue("John Travolta");
         $("button .button__text").shouldBe(Condition.text("Забронировать")).click();
 
-        String warning = $("[data-test-id='name'] .input__sub").text();
-        assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", warning);
+        // New checking without JUnit
+        $("[data-test-id='name'] .input__sub").shouldBe(
+                Condition.text("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.")
+        );
     }
 
     // Negative Test - wrong phone number
@@ -99,8 +106,10 @@ public class OrderCardDeliveryTest {
         $("[data-test-id='phone'] .input__control").setValue("+7123");
         $("button .button__text").shouldBe(Condition.text("Забронировать")).click();
 
-        String warning = $("[data-test-id='phone'] .input__sub").text();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", warning);
+        // New checking without JUnit
+        $("[data-test-id='phone'] .input__sub").shouldBe(
+                Condition.text("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.")
+        );
     }
 
     // Negative Test - wrong phone number
@@ -115,8 +124,10 @@ public class OrderCardDeliveryTest {
         $("[data-test-id='phone'] .input__control").setValue("71231234567+");
         $("button .button__text").shouldBe(Condition.text("Забронировать")).click();
 
-        String warning = $("[data-test-id='phone'] .input__sub").text();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", warning);
+        // New checking without JUnit
+        $("[data-test-id='phone'] .input__sub").shouldBe(
+                Condition.text("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.")
+        );
     }
 
     // Negative Test - without agreement
@@ -131,8 +142,10 @@ public class OrderCardDeliveryTest {
         // Step with agreement was missed
         $("button .button__text").shouldBe(Condition.text("Забронировать")).click();
 
-        String warning = $("[data-test-id='agreement'] [role='presentation']").text();
-        assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных", warning);
+        // New checking without JUnit
+        $("[data-test-id='agreement'] [role='presentation']").shouldBe(
+                Condition.text("Я соглашаюсь с условиями обработки и использования моих персональных данных")
+        );
     }
 
     // TASK #2
@@ -160,7 +173,9 @@ public class OrderCardDeliveryTest {
         $("[data-test-id='agreement'] span").click();
         $("button .button__text").shouldBe(Condition.text("Забронировать")).click();
 
-        String notificationContent = $("[data-test-id='notification'] .notification__content").shouldBe(visible, Duration.ofSeconds(15)).text();
-        assertEquals("Встреча успешно забронирована на " + selectDate, notificationContent);
+        // New checking without JUnit
+        $("[data-test-id='notification'] .notification__content").shouldBe(
+                Condition.text("Встреча успешно забронирована на " + selectDate), Duration.ofSeconds(15)
+        );
     }
 }
